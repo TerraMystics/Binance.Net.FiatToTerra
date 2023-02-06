@@ -1,6 +1,6 @@
 <br/>
 <p align="center">
-    <a href="https://github.com/TerraMystics"><img src="./binance_logo.png" align="center" width=350/></a>
+    <a href="https://github.com/TerraMystics"><img src="./binance_logo.jpg" align="center" width=350/></a>
 </p>
 
 <p align="center">

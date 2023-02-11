@@ -1,0 +1,10 @@
+*.suo
+*.user
+_ReSharper.*
+bin
+obj
+packages
+/.vs
+.vs
+TerraProto.CSharp.Legacy/Terra.Microsoft.ProtoBufs.1.0.2.nupkg
+TerraProto.CSharp.Legacy/Terra.Microsoft.ProtoBufs.1.0.3.nupkg

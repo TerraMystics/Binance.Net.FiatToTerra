@@ -52,6 +52,9 @@ Grab the latest version off [NuGet](https://www.nuget.org/packages/Binance.Net.F
 dotnet add package Binance.Net.FiatToTerra
 ```
 
+## Configure a Binance Api Key
+To set a binance Api Key please follow [this](https://binance-docs.github.io/apidocs/spot/en/#introduction)
+
 ## Usage
 
 This package can be used for Mobile & Web Developers, or SDK Developers looking to extend the Terra Platform

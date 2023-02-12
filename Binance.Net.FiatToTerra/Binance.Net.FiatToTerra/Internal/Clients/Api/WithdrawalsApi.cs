@@ -1,31 +1,25 @@
-﻿using Binance.FiatToTerra.Internal.Constants;
-using Binance.FiatToTerra.Internal.Helpers;
-using Binance.FiatToTerra.Models.Enums;
+﻿using Binance.FiatToTerra.Internal.Helpers;
+using Binance.FiatToTerra.Internal.Models.Configuration;
 using Binance.Net.Clients;
+using System.Threading.Tasks;
 
 namespace Binance.FiatToTerra.Internal.Clients.Api
 {
     internal class WithdrawalsApi
     {
         private readonly BinanceClient binanceClient;
-        public WithdrawalsApi(BinanceClient binanceClient)
+        private readonly BinanceClientConfiguration configuration;
+        public WithdrawalsApi(BinanceClient binanceClient, BinanceClientConfiguration configuration)
         {
+            this.configuration = configuration;
             this.binanceClient = binanceClient;
         }
 
-        public void ExecuteWithdrawalProcessForTerra(string terraAddress, decimal amount, TerraCoin coinType, StableCoins stable, string memo = "Binance-OnChainTransfer")
+        public async Task<string> ExecuteWithdrawalProcessForTerra(string terraAddress, decimal amount, string memo)
         {
-            string assetPair = AssetFriendlyNameHelper.GetTerraAssetNameForType(coinType, stable);
-            switch (coinType)
-            {
-                case TerraCoin.USTC:
-                    this.binanceClient.SpotApi.Account.WithdrawAsync(assetPair, terraAddress, amount, network: NetworkNames.USTC_NETWORK, name: memo);
-                    break;
-                case TerraCoin.LUNC:
-                    break;
-                case TerraCoin.LUNA:
-                    break;
-            }
+            string assetPair = AssetFriendlyNameHelper.GetTerraAssetNameForType(this.configuration.Terra, this.configuration.Stable);
+
+            return (await this.binanceClient.SpotApi.Account.WithdrawAsync(assetPair, terraAddress, amount, name: memo)).Data.Id;
         }
     }
 }

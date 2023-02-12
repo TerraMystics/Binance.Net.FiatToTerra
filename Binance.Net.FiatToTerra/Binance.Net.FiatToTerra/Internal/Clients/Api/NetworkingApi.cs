@@ -10,9 +10,5 @@ namespace Binance.FiatToTerra.Internal.Clients.Api
             this.binanceClient = binanceClient;
         }
 
-        public bool TestBinanceConnection()
-        {
-            this.binanceClient.SpotApi.Trading.ord
-        }
     }
 }

@@ -8,45 +8,45 @@ namespace Binance.FiatToTerra.Internal
 {
     internal class BinanceManager
     {
-        public static ServiceContainer Kernel;
+        public ServiceContainer Kernel;
 
-        public static void InitializeBinanceKernel(
+        public BinanceManager InitializeBinanceKernel(
             string apiKey,
             string apiSecret,
+            TerraCoin coin,
+            StableCoins stable,
             BinanceEnvironment env = BinanceEnvironment.TestNet)
         {
             Kernel = new ServiceContainer();
-            ConfigureCEXEnvironment(env);
             InitializeAllServices();
-            ConfigureBinanceApiKey(apiKey, apiSecret);
+            ConfigureBinanceApiKey(apiKey, apiSecret, env, coin, stable);
+
+            return this;
         }
 
-        private static void ConfigureBinanceApiKey(string apiKey, string apiSecret)
+        private void ConfigureBinanceApiKey(string apiKey, string apiSecret, BinanceEnvironment environment, TerraCoin coin, StableCoins stable)
         {
-            BinanceCoreServicesRegistration.Register(Kernel, apiKey, apiSecret);
+            string binanceUrl = "";
+            switch (BehaviouralConstants.Env = environment)
+            {
+                case BinanceEnvironment.Mainnet:
+                    binanceUrl = BinanceBaseUrls.BINANCE_MAINNET;
+                    break;
+                case BinanceEnvironment.TestNet:
+                    binanceUrl = BinanceBaseUrls.BINANCE_TESTNET;
+                    break;
+            }
+            BinanceCoreServicesRegistration.Register(Kernel, apiKey, binanceUrl, apiSecret, coin, stable);
         }
 
-        public static BinanceLCD GetBinanceLCDAccess()
+        public BinanceLCD GetBinanceLCDAccess()
         {
             return Kernel.GetInstance<BinanceLCD>();
         }
 
-        private static void InitializeAllServices()
+        private void InitializeAllServices()
         {
             ApiClientRegistration.RegisterApi(Kernel);
-        }
-
-        private static void ConfigureCEXEnvironment(BinanceEnvironment environment)
-        {
-            switch (BehaviouralConstants.Env = environment)
-            {
-                case BinanceEnvironment.Mainnet:
-                    BehaviouralConstants.BinanceBaseCEXUrl = BinanceBaseUrls.BINANCE_MAINNET;
-                    break;
-                case BinanceEnvironment.TestNet:
-                    BehaviouralConstants.BinanceBaseCEXUrl = BinanceBaseUrls.BINANCE_TESTNET;
-                    break;
-            }
         }
     }
 }

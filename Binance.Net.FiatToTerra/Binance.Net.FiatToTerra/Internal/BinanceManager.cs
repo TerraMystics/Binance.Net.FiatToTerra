@@ -3,6 +3,7 @@ using Binance.FiatToTerra.Internal.Clients;
 using Binance.FiatToTerra.Internal.Registration;
 using Binance.FiatToTerra.Models.Enums;
 using Binance.FiatToTerra.Constants.Http;
+using Binance.FiatToTerra.Internal.Models.Configuration;
 
 namespace Binance.FiatToTerra.Internal
 {
@@ -42,6 +43,11 @@ namespace Binance.FiatToTerra.Internal
         public BinanceLCD GetBinanceLCDAccess()
         {
             return Kernel.GetInstance<BinanceLCD>();
+        }
+
+        public BinanceClientConfiguration GetBinanceConfiguration()
+        {
+            return Kernel.GetInstance<BinanceClientConfiguration>();
         }
 
         private void InitializeAllServices()

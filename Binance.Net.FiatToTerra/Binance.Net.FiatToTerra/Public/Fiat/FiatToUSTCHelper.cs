@@ -55,5 +55,10 @@ namespace Binance.FiatToTerra.Public.Fiat
         {
             return await this.binanceRelay.withdrawals.ExecuteWithdrawalProcessForTerra(this.customerTerraAddress, USTCAmount, memo);
         }
+        public async Task<decimal> GetCurrentMarketPriceForUSD()
+        {
+            var config = manager.GetBinanceConfiguration();
+            return await this.binanceRelay.marketing.GetCurrentMarketPriceForTerra(config.Terra, config.Stable);
+        }
     }
 }

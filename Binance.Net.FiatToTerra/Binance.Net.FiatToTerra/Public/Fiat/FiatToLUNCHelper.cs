@@ -6,10 +6,11 @@ using Terra.Microsoft.Keys;
 
 namespace Binance.FiatToTerra.Public.Fiat
 {
-    public class FiatToLUNCHelper
+    public class FiatToLUNCHelper 
     {
         private readonly BinanceManager manager;
         private readonly BinanceLCD binanceRelay;
+
         public readonly string apiKey;
         public string customerTerraAddress;
 
@@ -55,6 +56,12 @@ namespace Binance.FiatToTerra.Public.Fiat
         public async Task<string> TransferLUNCToTerraStation(decimal LUNCAmount, string memo = "Binance-OnChainTransfer-TerraMystics")
         {
             return await this.binanceRelay.withdrawals.ExecuteWithdrawalProcessForTerra(this.customerTerraAddress, LUNCAmount, memo);
+        }
+
+        public async Task<decimal> GetCurrentMarketPriceForUSD()
+        {
+            var config = manager.GetBinanceConfiguration();
+            return await this.binanceRelay.marketing.GetCurrentMarketPriceForTerra(config.Terra, config.Stable);
         }
     }
 }

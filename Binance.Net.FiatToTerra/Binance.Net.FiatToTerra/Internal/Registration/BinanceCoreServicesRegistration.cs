@@ -1,30 +1,27 @@
-﻿using Binance.Net.Clients;
+﻿using Binance.FiatToTerra.Constants.Http;
+using Binance.Net.Clients;
+using Binance.Net.Objects;
+using CryptoExchange.Net.Authentication;
+using CryptoExchange.Net.Objects;
 using LightInject;
-using System;
-using System.Collections.Generic;
-using System.Security;
-using System.Text;
 
 namespace Binance.FiatToTerra.Internal.Registration
 {
     internal class BinanceCoreServicesRegistration
     {
-
-        public static void Register(ServiceContainer container, string apiKey)
+        public static void Register(ServiceContainer container, string apiKey, string apiSecret)
         {
-            container.RegisterInstance(new BinanceClient(new Net.Objects.BinanceClientOptions()
+            BinanceClient.SetDefaultOptions(new BinanceClientOptions
             {
-                ApiCredentials = new Net.Objects.BinanceApiCredentials()
+                ApiCredentials = new BinanceApiCredentials("API-KEY", "API-SECRET"),
+                SpotApiOptions = new BinanceApiClientOptions
                 {
-
-                },
-                SpotApiOptions = new Net.Objects.BinanceApiClientOptions()
-                {
-
+                    BaseAddress = BehaviouralConstants.BinanceBaseCEXUrl,
+                    RateLimitingBehaviour = RateLimitingBehaviour.Fail
                 }
+            });
 
-            }));
-
+            container.RegisterSingleton<BinanceClient>();
         }
     }
 }

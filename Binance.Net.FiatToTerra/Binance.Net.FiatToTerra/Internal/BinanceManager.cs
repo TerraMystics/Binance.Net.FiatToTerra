@@ -8,22 +8,22 @@ namespace Binance.FiatToTerra.Internal
 {
     internal class BinanceManager
     {
-        public static string BinanceApiKey { get; set; }
         public static ServiceContainer Kernel;
 
         public static void InitializeBinanceKernel(
             string apiKey,
+            string apiSecret,
             BinanceEnvironment env = BinanceEnvironment.TestNet)
         {
             Kernel = new ServiceContainer();
-            InitializeAllServices();
             ConfigureCEXEnvironment(env);
-            ConfigureBinanceApiKey(apiKey);
+            InitializeAllServices();
+            ConfigureBinanceApiKey(apiKey, apiSecret);
         }
 
-        private static void ConfigureBinanceApiKey(string apiKey)
+        private static void ConfigureBinanceApiKey(string apiKey, string apiSecret)
         {
-            BinanceCoreServicesRegistration.Register(Kernel, BehaviouralConstants.BinanceApiKey = apiKey);
+            BinanceCoreServicesRegistration.Register(Kernel, apiKey, apiSecret);
         }
 
         public static BinanceLCD GetBinanceLCDAccess()

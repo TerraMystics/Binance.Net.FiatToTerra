@@ -10,7 +10,7 @@ namespace Binance.FiatToTerra.Internal.Registration
         public static void RegisterApi(ServiceContainer container)
         {
             container.RegisterSingleton<MarketsApi>();
-            container.RegisterSingleton<BSwapsApi>();
+            container.RegisterSingleton<SwapsApi>();
             container.RegisterSingleton<WithdrawalsApi>();
             container.RegisterSingleton<BinanceLCD>();
         }

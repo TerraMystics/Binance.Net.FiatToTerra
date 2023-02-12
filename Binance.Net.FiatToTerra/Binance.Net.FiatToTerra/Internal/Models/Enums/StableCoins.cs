@@ -2,8 +2,7 @@
 {
     public enum StableCoins
     {
-        Usdt = 0,
+        USDT = 0,
         BUSD = 1,
-        USDC = 2,
     }
 }

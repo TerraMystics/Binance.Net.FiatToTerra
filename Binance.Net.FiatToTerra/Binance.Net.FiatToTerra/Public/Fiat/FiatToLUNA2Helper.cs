@@ -36,12 +36,12 @@ namespace Binance.FiatToTerra.Public.Fiat
             return this;
         }
 
-        public async Task<string> ExecuteSwapForUSTC_WithMarketPrice(decimal amount)
+        public async Task<string> ExecuteSwapForLUNA_WithMarketPrice(decimal amount)
         {
             return await this.binanceRelay.swaps.ExecuteBuySwapForAsset(amount);
         }
 
-        public async Task<string> ExecuteSwapForUSTC_WithLimit(decimal amount, decimal priceLimit)
+        public async Task<string> ExecuteSwapForLUNA_WithLimit(decimal amount, decimal priceLimit)
         {
             return await this.binanceRelay.swaps.ExecuteBuySwapForAssetWithLimit(amount, priceLimit);
         }
@@ -49,12 +49,12 @@ namespace Binance.FiatToTerra.Public.Fiat
         /// <summary>
         /// Executes an Withdrawal (Asset Transfer) from the customer's Binance wallet to their TerraStation Wallet
         /// </summary>
-        /// <param name="USTCAmount">Amount of USTC to transfer</param>
+        /// <param name="LUNAAmount">Amount of LUNA to transfer</param>
         /// <param name="memo">An optional memo (description) of the withdrawal</param>
         /// <returns></returns>
-        public async Task<string> TransferUSTCToTerraStation(decimal USTCAmount, string memo = "Binance-OnChainTransfer-TerraMystics")
+        public async Task<string> TransferLUNAToTerraStation(decimal LUNAAmount, string memo = "Binance-OnChainTransfer-TerraMystics")
         {
-            return await this.binanceRelay.withdrawals.ExecuteWithdrawalProcessForTerra(this.customerTerraAddress, USTCAmount, memo);
+            return await this.binanceRelay.withdrawals.ExecuteWithdrawalProcessForTerra(this.customerTerraAddress, LUNAAmount, memo);
         }
         public async Task<decimal> GetCurrentMarketPriceForUSD()
         {

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>Binance.FiatToTerra</id>
+    <version>1.0.0</version>
+    <title>Binance.FiatToTerra</title>
+    <icon>binance_logo.png</icon>
+    <authors>Dan Gerchcovich</authors>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <license type="expression">MIT</license>
+    <projectUrl>https://github.com/TerraMystics/Binance.FiatToTerra</projectUrl>
+    <description>Helps dApps migrate funds from Binance CEX to OnChain Terra Wallets (LUNC/LUNA/USTC)</description>
+    <releaseNotes>Package Update</releaseNotes>
+    <copyright>2022</copyright>
+    <tags></tags>
+  </metadata>
+
+  <files>
+    <file src="bin\Release\netstandard2.0\Binance.FiatToTerra.dll" target="lib\netstandard2.0\Binance.FiatToTerra.dll"/>
+    <file src="binance_logo.png" target="binance_logo.png"/>
+  </files>
+</package>

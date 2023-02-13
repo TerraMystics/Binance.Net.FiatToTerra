@@ -2,6 +2,7 @@
 using Binance.FiatToTerra.Internal.Models.Configuration;
 using Binance.Net.Clients;
 using CryptoExchange.Net.CommonObjects;
+using System;
 using System.Threading.Tasks;
 
 namespace Binance.FiatToTerra.Internal.Clients.Api
@@ -25,8 +26,16 @@ namespace Binance.FiatToTerra.Internal.Clients.Api
         {
             string assetName = AssetFriendlyNameHelper.GetTerraAssetNameForType(this.configuration.Terra, this.configuration.Stable);
 
-            return (await this.binanceClient.SpotApi.CommonSpotClient.PlaceOrderAsync(assetName,
-                   CommonOrderSide.Buy, CommonOrderType.Market, amount)).Data.Id;
+            var result = await this.binanceClient.SpotApi.CommonSpotClient.PlaceOrderAsync(assetName,
+                   CommonOrderSide.Buy, CommonOrderType.Market, amount);
+            if (result.Error != null)
+            {
+                throw new ArgumentException($"Failed to execute Buy Swap for Terra: \n Status Code: {result.Error.Code}, Error: {result.Error.Message}");
+            }
+            else
+            {
+                return result.Data.Id;
+            }
         }
 
         /// <summary>
@@ -39,7 +48,15 @@ namespace Binance.FiatToTerra.Internal.Clients.Api
         {
             string assetName = AssetFriendlyNameHelper.GetTerraAssetNameForType(this.configuration.Terra, this.configuration.Stable);
 
-            return (await this.binanceClient.SpotApi.CommonSpotClient.PlaceOrderAsync(assetName, CommonOrderSide.Buy, CommonOrderType.Limit, amount, priceLimit)).Data.Id;
+            var result = await this.binanceClient.SpotApi.CommonSpotClient.PlaceOrderAsync(assetName, CommonOrderSide.Buy, CommonOrderType.Limit, amount, priceLimit);
+            if (result.Error != null)
+            {
+                throw new ArgumentException($"Failed to execute Limit Buy Swap for Terra: \n Status Code: {result.Error.Code}, Error: {result.Error.Message}");
+            }
+            else
+            {
+                return result.Data.Id;
+            }
         }
     }
 }

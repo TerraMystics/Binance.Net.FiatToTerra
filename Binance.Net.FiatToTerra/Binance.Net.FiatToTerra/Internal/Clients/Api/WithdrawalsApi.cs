@@ -1,6 +1,7 @@
 ﻿using Binance.FiatToTerra.Internal.Helpers;
 using Binance.FiatToTerra.Internal.Models.Configuration;
 using Binance.Net.Clients;
+using System;
 using System.Threading.Tasks;
 
 namespace Binance.FiatToTerra.Internal.Clients.Api
@@ -19,7 +20,15 @@ namespace Binance.FiatToTerra.Internal.Clients.Api
         {
             string assetPair = AssetFriendlyNameHelper.GetTerraAssetNameForType(this.configuration.Terra, this.configuration.Stable);
 
-            return (await this.binanceClient.SpotApi.Account.WithdrawAsync(assetPair, terraAddress, amount, name: memo)).Data.Id;
+            var result = await this.binanceClient.SpotApi.Account.WithdrawAsync(assetPair, terraAddress, amount, name: memo);
+            if (result.Error != null)
+            {
+                throw new ArgumentException($"Failed to execute Limit Buy Swap for Terra: \n Status Code: {result.Error.Code}, Error: {result.Error.Message}");
+            }
+            else
+            {
+                return result.Data.Id;
+            }
         }
     }
 }

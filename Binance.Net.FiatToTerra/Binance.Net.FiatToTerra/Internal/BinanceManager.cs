@@ -37,7 +37,7 @@ namespace Binance.FiatToTerra.Internal
                     binanceUrl = BinanceBaseUrls.BINANCE_TESTNET;
                     break;
             }
-            BinanceCoreServicesRegistration.Register(Kernel, apiKey, binanceUrl, apiSecret, coin, stable);
+            BinanceCoreServicesRegistration.Register(Kernel, apiKey, apiSecret, binanceUrl, coin, stable);
         }
 
         public BinanceLCD GetBinanceLCDAccess()

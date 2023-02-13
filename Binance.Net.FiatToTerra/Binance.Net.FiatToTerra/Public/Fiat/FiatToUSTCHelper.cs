@@ -3,6 +3,9 @@ using Binance.FiatToTerra.Internal;
 using Binance.FiatToTerra.Models.Enums;
 using System.Threading.Tasks;
 using Terra.Microsoft.Keys;
+using System.IO;
+using System.Net;
+using System;
 
 namespace Binance.FiatToTerra.Public.Fiat
 {
